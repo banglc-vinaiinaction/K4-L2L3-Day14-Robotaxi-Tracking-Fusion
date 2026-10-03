@@ -17,7 +17,7 @@ Keyframe quan trọng và lý do: Frame 0 (xe xuất hiện ở xa ~71.5m), Fram
 SELF-QC (từ qc_tracks.csv / qc_flags.csv)
 Lần QC đầu — cờ của track J01 (loại, frame): Lần export đầu: Có cờ do đặt keyframe chưa đều và kích thước co giãn nhẹ; sau đó chuẩn hóa lại 10 keyframe mốc uốn chính.
 Quyết định cho từng cờ (sửa / giữ vì hợp lệ / chưa đủ evidence) và lý do: Sửa: Tinh chỉnh lại 10 keyframe, chuẩn hóa kích thước hộp thành 4.40 x 1.95 x 1.65m ôm khít toàn bộ cụm điểm tại frame 38 và khóa cứng dimension.
-Đã sửa gì sau QC đầu; QC cuối còn cờ nào: Chốt 10 keyframe (0, 8, 16, 24, 30, 38, 44, 50, 56, 65), chuẩn hóa L/W/H = 4.40x1.95x1.65m, nhãn vehicles; QC cuối còn cờ nào: 0 cờ (L/W/H drift = 0.0%, yaw_step_max = 3.0 deg, pos_step_max = 1.73m).
+Đã sửa gì sau QC đầu; QC cuối còn cờ nào: Chốt 10 keyframe (0, 8, 16, 24, 30, 38, 44, 50, 56, 65), chuẩn hóa L/W/H = 4.40x1.95x1.65m, nhãn vehicles; QC cuối còn cờ nào: 0 cờ (L/W/H drift = 0.0%, yaw_step_max = 3.44 deg, pos_step_max = 1.74m).
 Nhận xét của bạn cùng cặp và bạn đồng ý/không đồng ý vì sao: Làm cá nhân; tự kiểm tra chéo (self-review) qua overlay 2D image_1 và temporal QC. Số liệu temporal QC hoàn toàn sạch (0 cờ), đối chiếu Camera–LiDAR trên image_1 khớp khít ranh giới xe.
 
 CAMERA–LIDAR (overlay trên image_1)
