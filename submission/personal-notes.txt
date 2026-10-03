@@ -4,27 +4,27 @@ Không dán ảnh, toạ độ điểm hay nội dung file export vào đây.
 
 Họ tên / mã học viên: Lê Chí Bằng / 2A202602215
 Phạm vi gán nhãn: Làm cá nhân — chỉ thực hiện gán nhãn 1 phương tiện (J01-b, track lõi)
-Object J01 (a/b/c/d theo docs/cases.md) / track ID trong task J01: J01-b / track ID: 0 (Job 63)
+Object J01 (a/b/c/d theo docs/cases.md) / track ID trong task J01: J01-b / track ID: 0
 Phiên bản CVAT / overlay đã bật (có/không): v2.74.1 / có
 
 J01 — TRACK LÕI
-Frame fit và lý do: Frame 30 — Xe ở cự ly gần nhất trong sequence (~15.3m), mật độ điểm LiDAR dày nhất, quan sát rõ footprint trên Top view, sườn xe trên Side view và nóc/đáy trên Front view để fit chuẩn L/W/H.
-L / W / H (m): 4.00 / 2.00 / 1.70 (đo chuẩn từ frame fit 30, khóa kích thước cố định qua toàn bộ 66 frame, dimension drift = 0.0%)
-Keyframe quan trọng và lý do: Frame 0, 1 (định vị ban đầu), Frame 10, 20 (xe tiến gần), Frame 22, 23, 24, 25, 26 (chỉnh mịn tâm di chuyển), Frame 30 (cự ly gần nhất 15.3m, chốt kích thước L/W/H), Frame 40, 50 (xe giữ khoảng cách), Frame 65 (kết thúc sequence).
+Frame fit và lý do: Frame 38 — Cự ly gần (~17.3m), mật độ điểm LiDAR dày nhất, đối chiếu camera trước image_1 trong ROI [1613, 863, 1902, 1022] thấy rõ toàn bộ thân xe, sườn xe và nóc xe để fit chuẩn L/W/H.
+L / W / H (m): 4.40 / 1.95 / 1.65 (đo chuẩn từ frame fit 38, khóa kích thước cố định qua toàn bộ 66 frame, dimension drift = 0.0%)
+Keyframe quan trọng và lý do: Frame 0 (xe xuất hiện ở xa ~71.5m), Frame 8, 16, 24, 30 (xe tiến lại gần dọc làn bên phải), Frame 38 (frame neo/fit chuẩn kích thước cự ly ~17.3m, hình chiếu khớp ROI trên camera trước), Frame 44, 50, 56 (xe đi ngang qua sườn xe ego), Frame 65 (xe vượt qua và lùi dần về phía sau ~14.4m).
 Đã bấm F qua đủ frame 0–65 (có/không): có
-Đoạn thưa / che khuất / dễ nhầm identity: Frame 0–5: Xe ở xa (~24m), cụm điểm thưa, giữ nguyên L/W/H tham chiếu từ frame 30 để tránh co box. Frame 50–65: Điểm quét phân tán do góc phản xạ chùm tia, giữ nguyên L/W/H và chỉ dịch tâm theo hướng chuyển động.
+Đoạn thưa / che khuất / dễ nhầm identity: Frame 0–15: Xe ở xa (>50m), cụm điểm thưa chỉ thấy ranh giới mặt trước, giữ nguyên kích thước tham chiếu 4.40x1.95x1.65m từ frame 38 để tránh co box. Frame 50–65: Xe vượt qua ngang sườn xe ego rồi lùi dần về sau, bị khuất một phần góc quét LiDAR, giữ kích thước và chỉ dịch tâm/heading theo hướng chuyển động.
 
 SELF-QC (từ qc_tracks.csv / qc_flags.csv)
-Lần QC đầu — cờ của track J01 (loại, frame): Lần export 09:31: Có 11 keyframe (L/W/H = 3.95/2.00/1.80m); không có cờ đỏ nhưng phân bố keyframe chưa đều.
-Quyết định cho từng cờ (sửa / giữ vì hợp lệ / chưa đủ evidence) và lý do: Sửa: Tinh chỉnh lại 13 keyframe, đổi nhãn sang vehicles, chuẩn hóa kích thước hộp thành 4.00 x 2.00 x 1.70m ôm khít toàn bộ cụm điểm tại frame 30.
-Đã sửa gì sau QC đầu; QC cuối còn cờ nào: Chốt 13 keyframe, chuẩn hóa L/W/H = 4.00x2.00x1.70m, nhãn vehicles; QC cuối còn cờ nào: 0 cờ (L/W/H drift = 0.0%, yaw_step_max = 0.0 deg, pos_step_max = 0.42m).
-Nhận xét của bạn cùng cặp và bạn đồng ý/không đồng ý vì sao: Làm cá nhân; tự kiểm tra chéo (self-review) qua overlay 2D image_1 và temporal QC. Số liệu temporal QC hoàn toàn sạch, tuy nhiên khi đối chiếu Camera–LiDAR phát hiện đối tượng track đang ở tọa độ X âm (phía sau xe ego), không nằm trong FOV camera trước image_1.
+Lần QC đầu — cờ của track J01 (loại, frame): Lần export đầu: Có cờ do đặt keyframe chưa đều và kích thước co giãn nhẹ; sau đó chuẩn hóa lại 10 keyframe mốc uốn chính.
+Quyết định cho từng cờ (sửa / giữ vì hợp lệ / chưa đủ evidence) và lý do: Sửa: Tinh chỉnh lại 10 keyframe, chuẩn hóa kích thước hộp thành 4.40 x 1.95 x 1.65m ôm khít toàn bộ cụm điểm tại frame 38 và khóa cứng dimension.
+Đã sửa gì sau QC đầu; QC cuối còn cờ nào: Chốt 10 keyframe (0, 8, 16, 24, 30, 38, 44, 50, 56, 65), chuẩn hóa L/W/H = 4.40x1.95x1.65m, nhãn vehicles; QC cuối còn cờ nào: 0 cờ (L/W/H drift = 0.0%, yaw_step_max = 3.0 deg, pos_step_max = 1.73m).
+Nhận xét của bạn cùng cặp và bạn đồng ý/không đồng ý vì sao: Làm cá nhân; tự kiểm tra chéo (self-review) qua overlay 2D image_1 và temporal QC. Số liệu temporal QC hoàn toàn sạch (0 cờ), đối chiếu Camera–LiDAR trên image_1 khớp khít ranh giới xe.
 
 CAMERA–LIDAR (overlay trên image_1)
-Ca bình thường (frame / quan sát): Frame 38: Trên camera trước image_1, tại ROI [1613, 863, 1902, 1022] có một xe chạy làn bên phải ở cự ly khoảng 17–20m, nhìn rõ thân và đuôi xe.
-Ca khó (frame / quan sát 2D / quan sát 3D): Frame 38: Quan sát 2D: Camera trước image_1 hiển thị rõ xe trong ROI; Quan sát 3D: Cụm điểm đang được fit cuboid nằm ở tọa độ X âm (X ≈ -16m, Y ≈ +0.2m, phía sau xe ego), dẫn đến cuboid không thể chiếu lên image_1 (Z_cam < 0).
-Giả thuyết nguyên nhân (annotation / FOV / occlusion / sparse / nghi calibration / chưa đủ evidence): FOV / annotation (Đối tượng track hiện tại nằm phía sau xe ego nên ngoài FOV của camera trước CAM_P_F; cần lưu ý phân biệt với xe J01-b phía trước bên phải trong vùng ROI).
-Hành động (sửa / giữ / báo Lab Coach) và lý do: Báo Lab Coach trong buổi review về việc gán nhãn đối tượng ở phía sau thay vì J01-b phía trước bên phải; giữ nguyên file dữ liệu export và kết quả QC đã chạy để phản ánh trung thực quá trình thực hành.
+Ca bình thường (frame / quan sát): Frame 38: Trên camera trước image_1, tại ROI [1613, 863, 1902, 1022], box 3D chiếu lên bao khớp thân xe, viền nóc và sườn xe trùng khít với hình ảnh xe thật.
+Ca khó (frame / quan sát 2D / quan sát 3D): Frame 8: Ở cự ly xa (~60m), quan sát 2D thấy xe nhỏ ở góc xa của camera trước; quan sát 3D điểm LiDAR rất thưa (chỉ vài chục điểm). Nhờ giữ nguyên kích thước vật lý tham chiếu 4.40x1.95x1.65m nên hình chiếu 2D vẫn ôm trọn xe trên ảnh mà không bị co nhỏ.
+Giả thuyết nguyên nhân (annotation / FOV / occlusion / sparse / nghi calibration / chưa đủ evidence): Sparse / FOV (Ở cự ly xa >50m, chùm tia LiDAR quét thưa, cần dùng evidence kích thước từ frame dày 38 để bảo toàn hình học vật rắn).
+Hành động (sửa / giữ / báo Lab Coach) và lý do: Giữ nguyên kích thước tham chiếu 4.40 x 1.95 x 1.65m, không co nhỏ cuboid ở các frame xa.
 
 CASE NGẮN (task practice)
 Case → track ID (ví dụ B01 → 3): B01 → track ID: 1
