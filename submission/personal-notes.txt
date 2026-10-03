@@ -3,8 +3,8 @@ PHIẾU CÁ NHÂN — DAY 14
 Không dán ảnh, toạ độ điểm hay nội dung file export vào đây.
 
 Họ tên / mã học viên: Lê Chí Bằng / 2A202602215
-Phạm vi gán nhãn: Làm cá nhân — chỉ thực hiện gán nhãn 1 phương tiện (J01-b, track lõi)
-Object J01 (a/b/c/d theo docs/cases.md) / track ID trong task J01: J01-b / track ID: 0
+Phạm vi gán nhãn: Làm cá nhân — thực hiện gán nhãn track J01-b (Track ID: 1) và track xe phía sau ego (Track ID: 0)
+Object J01 (a/b/c/d theo docs/cases.md) / track ID trong task J01: J01-b / track ID: 1 (Track 0: xe sau ego)
 Phiên bản CVAT / overlay đã bật (có/không): v2.74.1 / có
 
 J01 — TRACK LÕI
@@ -15,10 +15,10 @@ Keyframe quan trọng và lý do: Frame 0 (xe xuất hiện ở xa ~71.5m), Fram
 Đoạn thưa / che khuất / dễ nhầm identity: Frame 0–15: Xe ở xa (>50m), cụm điểm thưa chỉ thấy ranh giới mặt trước, giữ nguyên kích thước tham chiếu 4.40x1.95x1.65m từ frame 38 để tránh co box. Frame 50–65: Xe vượt qua ngang sườn xe ego rồi lùi dần về sau, bị khuất một phần góc quét LiDAR, giữ kích thước và chỉ dịch tâm/heading theo hướng chuyển động.
 
 SELF-QC (từ qc_tracks.csv / qc_flags.csv)
-Lần QC đầu — cờ của track J01 (loại, frame): Lần export đầu: Có cờ do đặt keyframe chưa đều và kích thước co giãn nhẹ; sau đó chuẩn hóa lại 10 keyframe mốc uốn chính.
-Quyết định cho từng cờ (sửa / giữ vì hợp lệ / chưa đủ evidence) và lý do: Sửa: Tinh chỉnh lại 10 keyframe, chuẩn hóa kích thước hộp thành 4.40 x 1.95 x 1.65m ôm khít toàn bộ cụm điểm tại frame 38 và khóa cứng dimension.
-Đã sửa gì sau QC đầu; QC cuối còn cờ nào: Chốt 10 keyframe (0, 8, 16, 24, 30, 38, 44, 50, 56, 65), chuẩn hóa L/W/H = 4.40x1.95x1.65m, nhãn vehicles; QC cuối còn cờ nào: 0 cờ (L/W/H drift = 0.0%, yaw_step_max = 3.44 deg, pos_step_max = 1.74m).
-Nhận xét của bạn cùng cặp và bạn đồng ý/không đồng ý vì sao: Làm cá nhân; tự kiểm tra chéo (self-review) qua overlay 2D image_1 và temporal QC. Số liệu temporal QC hoàn toàn sạch (0 cờ), đối chiếu Camera–LiDAR trên image_1 khớp khít ranh giới xe.
+Lần QC đầu — cờ của track J01 (loại, frame): Lần export đầu: Có cờ do đặt keyframe chưa đều và kích thước co giãn nhẹ; sau đó chuẩn hóa lại các keyframe mốc uốn chính.
+Quyết định cho từng cờ (sửa / giữ vì hợp lệ / chưa đủ evidence) và lý do: Sửa: Tinh chỉnh lại các keyframe cho cả Track 0 (13 keyframes, 4.00x2.00x1.70m) và Track 1 (10 keyframes, 4.40x1.95x1.65m), khóa cứng dimension drift 0.0%.
+Đã sửa gì sau QC đầu; QC cuối còn cờ nào: Chốt 2 track: Track 0 (xe sau ego, 13 keyframes, 4.00x2.00x1.70m, drift 0.0%) và Track 1 (J01-b, 10 keyframes, 4.40x1.95x1.65m, drift 0.0%); QC cuối còn cờ nào: 0 cờ cho cả 2 track.
+Nhận xét của bạn cùng cặp và bạn đồng ý/không đồng ý vì sao: Làm cá nhân; tự kiểm tra chéo (self-review) qua overlay 2D image_1 và temporal QC. Số liệu temporal QC cả 2 track sạch (0 cờ), Track 1 (J01-b) đối chiếu Camera–LiDAR trên image_1 khớp khít ranh giới xe.
 
 CAMERA–LIDAR (overlay trên image_1)
 Ca bình thường (frame / quan sát): Frame 38: Trên camera trước image_1, tại ROI [1613, 863, 1902, 1022], box 3D chiếu lên bao khớp thân xe, viền nóc và sườn xe trùng khít với hình ảnh xe thật.
