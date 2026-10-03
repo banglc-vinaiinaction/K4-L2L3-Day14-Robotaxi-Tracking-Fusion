@@ -2,34 +2,35 @@ PHIẾU CÁ NHÂN — DAY 14
 Điền file này, chạy QC vào submission/qc-j01 và submission/qc-practice, commit rồi nộp link repo.
 Không dán ảnh, toạ độ điểm hay nội dung file export vào đây.
 
-Họ tên / mã học viên:
-Object J01 (a/b/c/d theo docs/cases.md) / track ID trong task J01:
-Phiên bản CVAT / overlay đã bật (có/không):
+Họ tên / mã học viên: Lê Chí Bằng / 2A202602215
+Phạm vi gán nhãn: Làm cá nhân — chỉ thực hiện gán nhãn 1 phương tiện (J01-b, track lõi)
+Object J01 (a/b/c/d theo docs/cases.md) / track ID trong task J01: J01-b / track ID: 0 (Job 63)
+Phiên bản CVAT / overlay đã bật (có/không): v2.74.1 / có
 
 J01 — TRACK LÕI
-Frame fit và lý do:
-L / W / H (m):
-Keyframe quan trọng và lý do:
-Đã bấm F qua đủ frame 0–65 (có/không):
-Đoạn thưa / che khuất / dễ nhầm identity:
+Frame fit và lý do: Frame 30 — Xe ở cự ly gần nhất trong sequence (~15.3m), mật độ điểm LiDAR dày nhất, quan sát rõ footprint trên Top view, sườn xe trên Side view và nóc/đáy trên Front view để fit chuẩn L/W/H.
+L / W / H (m): 4.00 / 2.00 / 1.70 (đo chuẩn từ frame fit 30, khóa kích thước cố định qua toàn bộ 66 frame, dimension drift = 0.0%)
+Keyframe quan trọng và lý do: Frame 0, 1 (định vị ban đầu), Frame 10, 20 (xe tiến gần), Frame 22, 23, 24, 25, 26 (chỉnh mịn tâm di chuyển), Frame 30 (cự ly gần nhất 15.3m, chốt kích thước L/W/H), Frame 40, 50 (xe giữ khoảng cách), Frame 65 (kết thúc sequence).
+Đã bấm F qua đủ frame 0–65 (có/không): có
+Đoạn thưa / che khuất / dễ nhầm identity: Frame 0–5: Xe ở xa (~24m), cụm điểm thưa, giữ nguyên L/W/H tham chiếu từ frame 30 để tránh co box. Frame 50–65: Điểm quét phân tán do góc phản xạ chùm tia, giữ nguyên L/W/H và chỉ dịch tâm theo hướng chuyển động.
 
 SELF-QC (từ qc_tracks.csv / qc_flags.csv)
-Lần QC đầu — cờ của track J01 (loại, frame):
-Quyết định cho từng cờ (sửa / giữ vì hợp lệ / chưa đủ evidence) và lý do:
-Đã sửa gì sau QC đầu; QC cuối còn cờ nào:
-Nhận xét của bạn cùng cặp và bạn đồng ý/không đồng ý vì sao:
+Lần QC đầu — cờ của track J01 (loại, frame): Lần export 09:31: Có 11 keyframe (L/W/H = 3.95/2.00/1.80m); không có cờ đỏ nhưng phân bố keyframe chưa đều.
+Quyết định cho từng cờ (sửa / giữ vì hợp lệ / chưa đủ evidence) và lý do: Sửa: Tinh chỉnh lại 13 keyframe, đổi nhãn sang vehicles, chuẩn hóa kích thước hộp thành 4.00 x 2.00 x 1.70m ôm khít toàn bộ cụm điểm tại frame 30.
+Đã sửa gì sau QC đầu; QC cuối còn cờ nào: Chốt 13 keyframe, chuẩn hóa L/W/H = 4.00x2.00x1.70m, nhãn vehicles; QC cuối còn cờ nào: 0 cờ (L/W/H drift = 0.0%, yaw_step_max = 0.0 deg, pos_step_max = 0.42m).
+Nhận xét của bạn cùng cặp và bạn đồng ý/không đồng ý vì sao: Làm cá nhân; tự kiểm tra chéo (self-review) qua overlay 2D image_1 và temporal QC. Số liệu temporal QC hoàn toàn sạch, tuy nhiên khi đối chiếu Camera–LiDAR phát hiện đối tượng track đang ở tọa độ X âm (phía sau xe ego), không nằm trong FOV camera trước image_1.
 
 CAMERA–LIDAR (overlay trên image_1)
-Ca bình thường (frame / quan sát):
-Ca khó (frame / quan sát 2D / quan sát 3D):
-Giả thuyết nguyên nhân (annotation / FOV / occlusion / sparse / nghi calibration / chưa đủ evidence):
-Hành động (sửa / giữ / báo Lab Coach) và lý do:
+Ca bình thường (frame / quan sát): Frame 38: Trên camera trước image_1, tại ROI [1613, 863, 1902, 1022] có một xe chạy làn bên phải ở cự ly khoảng 17–20m, nhìn rõ thân và đuôi xe.
+Ca khó (frame / quan sát 2D / quan sát 3D): Frame 38: Quan sát 2D: Camera trước image_1 hiển thị rõ xe trong ROI; Quan sát 3D: Cụm điểm đang được fit cuboid nằm ở tọa độ X âm (X ≈ -16m, Y ≈ +0.2m, phía sau xe ego), dẫn đến cuboid không thể chiếu lên image_1 (Z_cam < 0).
+Giả thuyết nguyên nhân (annotation / FOV / occlusion / sparse / nghi calibration / chưa đủ evidence): FOV / annotation (Đối tượng track hiện tại nằm phía sau xe ego nên ngoài FOV của camera trước CAM_P_F; cần lưu ý phân biệt với xe J01-b phía trước bên phải trong vùng ROI).
+Hành động (sửa / giữ / báo Lab Coach) và lý do: Báo Lab Coach trong buổi review về việc gán nhãn đối tượng ở phía sau thay vì J01-b phía trước bên phải; giữ nguyên file dữ liệu export và kết quả QC đã chạy để phản ánh trung thực quá trình thực hành.
 
 CASE NGẮN (task practice)
-Case → track ID (ví dụ B01 → 3):
-Case đã xong:
-Case đang dở / chỗ kẹt:
-fragmentation_suspect ở đầu/cuối case đã kiểm là do cách cắt case (có/không):
+Case → track ID (ví dụ B01 → 3): B01 → track ID: 1
+Case đã xong: B01 (frame 16–21)
+Case đang dở / chỗ kẹt: Không (làm cá nhân tập trung hoàn thiện track lõi J01-b)
+fragmentation_suspect ở đầu/cuối case đã kiểm là do cách cắt case (có/không): có
 
 THỜI GIAN
-J01 / case ngắn / QC và fusion:
+J01 / case ngắn / QC và fusion: 110 phút / 20 phút / 30 phút
