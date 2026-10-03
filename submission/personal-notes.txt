@@ -3,7 +3,7 @@ PHIẾU CÁ NHÂN — DAY 14
 Không dán ảnh, toạ độ điểm hay nội dung file export vào đây.
 
 Họ tên / mã học viên: Lê Chí Bằng / 2A202602215
-Phạm vi gán nhãn: Làm cá nhân — thực hiện gán nhãn track J01-b (Track ID: 1) và track xe phía sau ego (Track ID: 0)
+Phạm vi gán nhãn: Làm cá nhân — không gán nhãn toàn bộ phương tiện trong cảnh, chỉ thực hiện gán nhãn 1 phương tiện (Cụ thể: track lõi J01-b được phân công theo số cuối mã học viên 5, xe sedan màu trắng làn bên phải, frame neo 38). Có lưu kèm 1 track phụ xe phía sau ego (Track 0).
 Object J01 (a/b/c/d theo docs/cases.md) / track ID trong task J01: J01-b / track ID: 1 (Track 0: xe sau ego)
 Phiên bản CVAT / overlay đã bật (có/không): v2.74.1 / có
 
